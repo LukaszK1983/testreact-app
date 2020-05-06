@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/testreact-app/static/css/main.d1b05096.chunk.css",
+    "main.js": "/testreact-app/static/js/main.d1297418.chunk.js",
+    "main.js.map": "/testreact-app/static/js/main.d1297418.chunk.js.map",
+    "runtime-main.js": "/testreact-app/static/js/runtime-main.2a274e28.js",
+    "runtime-main.js.map": "/testreact-app/static/js/runtime-main.2a274e28.js.map",
+    "static/js/2.abd7a797.chunk.js": "/testreact-app/static/js/2.abd7a797.chunk.js",
+    "static/js/2.abd7a797.chunk.js.map": "/testreact-app/static/js/2.abd7a797.chunk.js.map",
+    "index.html": "/testreact-app/index.html",
+    "precache-manifest.b80b7d9b482ada3c46f05562ffe9af93.js": "/testreact-app/precache-manifest.b80b7d9b482ada3c46f05562ffe9af93.js",
+    "service-worker.js": "/testreact-app/service-worker.js",
+    "static/css/main.d1b05096.chunk.css.map": "/testreact-app/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.abd7a797.chunk.js.LICENSE.txt": "/testreact-app/static/js/2.abd7a797.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/testreact-app/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2a274e28.js",
+    "static/js/2.abd7a797.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.d1297418.chunk.js"
+  ]
+}
