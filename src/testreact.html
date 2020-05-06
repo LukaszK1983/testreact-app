@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pierwszy komponent w React.js</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+</head>
+
+<body>
+<div id="app"></div>
+<script type="text/babel">
+    function AppHeader() {
+        return (
+            <header className="ui fixed menu">
+                <nav className="ui container">
+                    <a href="#" className="header item">
+                        <img
+                            className="logo"
+                            src="https://typeofweb.com/wp-content/uploads/2017/08/cropped-typeofweb_logo-04-white-smaller-1-e1504359870362.png"
+                        />
+                        Lista kontaktów
+                    </a>
+                    <div className="header item">
+                        <button className="ui button">Dodaj</button>
+                    </div>
+                </nav>
+            </header>
+        );
+    }
+
+    function ContactsList() {
+        return (
+            <ul className="ui relaxed divided list selection">
+                <ContactItem
+                    login="typeofweb1"
+                    name="Lena"
+                    department="JavaScript Developer"
+                />
+                <ContactItem
+                    login="typeofweb1"
+                    name="Milenka"
+                    department="JavaScript Developer"
+                />
+                <ContactItem
+                    login="typeofweb5"
+                    name="Milenki bob :)"
+                    department="JavaScript Developer"
+                />
+                <ContactItem
+                    login="jan@jan.com"
+                    name="Milenki drugi bob :-)"
+                    department="JavaScript Developer"
+                />
+                <ContactItem
+                    login="typeofweb2"
+                    name="Brian"
+                    department="Human Resources"
+                />
+                <ContactItem
+                    login="typeofweb3"
+                    name="Rick"
+                    department="QA"
+                />
+            </ul>
+        );
+    }
+
+    //
+    // class MyForm extends React.Component {
+    //     render() {
+    //         const {login} = this.props
+    //         return (
+    //             <Input name="nip" validate={[this.validateInput]} />
+    //         )
+    //     }
+    //
+    //     validateInput(value) {
+    //         return value && value.length === 10;
+    //     }
+    // }
+    //
+    class LoginImg extends React.Component {
+        render() {
+            const {login} = this.props
+            // const imgUrl = `https://api.adorable.io/avatars/55/${login}.png`;
+            const imgUrl = this.validateLogin(login);
+            return (
+                <div>
+                    <img src={[this.validateLogin(login)]} className="ui mini rounded image"/>
+                    <div>Adres: {imgUrl}</div>
+                </div>
+            )
+        }
+
+        validateLogin(login) {
+            const emailRegex = /"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+"/;
+            let imgUrl;
+
+            if (emailRegex.test(login)) {
+                // imgUrl = 'http://bbee.nazwa.pl/ftp/gp/img/telefon.jpg';
+                imgUrl = 'kot';
+            } else {
+                imgUrl = `https://api.adorable.io/avatars/55/${login}.png`;
+            }
+
+            return imgUrl;
+        }
+    }
+
+    // function LoginImg({login}) {
+    //     // const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"/;
+    //     // if (emailRegex.test(${login})) {
+    //     //     const imgUrl = 'http://bbee.nazwa.pl/ftp/gp/img/telefon.jpg';
+    //     // } else {
+    //         const imgUrl = `https://api.adorable.io/avatars/55/${login}.png`;
+    //     // }
+    //     return (
+    //         <img src={imgUrl} className="ui mini rounded image"/>
+    //     );
+    // }
+
+    class ContactItem extends React.Component {
+        render() {
+            const {login, name, department} = this.props
+            return (
+                <li className="item">
+                    <LoginImg login={login}/>
+                    <div className="content">
+                        <h4 className="header">{name}</h4>
+                        <div className="description">{department}</div>
+                        <button onClick={() => {
+                            this.onClickHandler(login)
+                        }}>Kliknij
+                        </button>
+                    </div>
+                </li>
+            );
+        }
+
+        onClickHandler(login) {
+            alert("Login: " + login);
+            console.log("Login: ", login);
+        }
+    }
+
+    class Counter extends React.Component {
+        constructor() {
+            super();
+            this.state = {counter: 0, allClicksCounter: 0, dblClickCounter: 0};
+        }
+
+        render() {
+            return (
+                <div>
+
+                    <button onClick={this.increment.bind(this)}>+</button>
+                    <output onDoubleClick={this.dblClick.bind(this)}>{this.state.counter}</output>
+                    <button onClick={this.decrement.bind(this)}>-</button>
+                    <output>All clicks: {this.state.allClicksCounter}</output>
+                    <output>Double clicks: {this.state.dblClickCounter}</output>
+                </div>
+            );
+        }
+
+        increment() {
+            this.setState({
+                counter: this.state.counter + 1,
+                allClicksCounter: this.state.allClicksCounter + 1
+            })
+        }
+
+        decrement() {
+            this.setState({
+                counter: this.state.counter - 1,
+                allClicksCounter: this.state.allClicksCounter + 1
+            })
+        }
+
+        dblClick() {
+            this.setState({
+                dblClickCounter: this.state.dblClickCounter + 1
+            })
+        }
+    }
+
+    class InputExercise extends React.Component {
+        constructor() {
+            super();
+            this.state = {name: '', surname: ''};
+        }
+
+        render() {
+            return (
+                <div>
+                    <p>Zadanie do pkt 9 (State w React.js 2) z formularzem</p>
+                    <p>
+                        <label>Wpisz imię:</label>
+                        <input type="text" value={this.state.name}
+                               onInput={this.setName.bind(this)}/><span> - {this.state.name}</span>
+                    </p>
+                    <p>
+                        <label>Wpisz nazwisko:</label>
+                        <input type="text" value={this.state.surname}
+                               onInput={this.setSurname.bind(this)}/><span> - {this.state.surname}</span>
+                    </p>
+                </div>
+            );
+        }
+
+        setName(e) {
+            this.setState({
+                name: e.target.value
+            })
+        }
+
+        setSurname(e) {
+            this.setState({
+                surname: e.target.value
+            })
+        }
+    }
+
+    // Zadanie do pkt 10 (Metody cyklu życia komponentu)
+    class Parent extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                parentValue: 5,
+                forwardValue: 0
+            };
+            this.handleClick = this.handleClick.bind(this);
+            this.handleChange = this.handleChange.bind(this);
+        }
+
+        handleChange(e) {
+            this.setState({
+                parentValue: e.target.value
+            });
+        }
+
+        handleClick() {
+            this.setState({
+                forwardValue: this.state.parentValue
+            });
+        }
+
+        render() {
+            return (
+                <div>
+                    <p>Zadanie do pkt 10 (Metody cyklu życia komponentu)</p>
+                    <p>
+                        <label>Wpisz dowolną liczbę naturalną</label>
+                        <input type="number" onChange={this.handleChange}/>
+                        <button onClick={this.handleClick}>Przekaż wartość</button>
+                        {this.state.forwardValue && <Child value={this.state.forwardValue}/>}
+                    </p>
+                </div>
+            );
+        }
+    }
+
+    class Child extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                fromParent: Number(props.value),
+                childValue: Number(props.value)
+            }
+            this.handleIncrement = this.handleIncrement.bind(this);
+            this.handleDecrement = this.handleDecrement.bind(this);
+        }
+
+        componentWillReceiveProps(nextProps) {
+            if (nextProps.value !== this.state.fromParent) {
+                this.setState({
+                    fromParent: Number(nextProps.value),
+                    childValue: Number(nextProps.value)
+                });
+            }
+        }
+
+        handleIncrement() {
+            this.setState({
+                childValue: this.state.childValue + 1
+            });
+        }
+
+        handleDecrement() {
+            this.setState({
+                childValue: this.state.childValue - 1
+            });
+        }
+
+        render() {
+            return (
+                <div>
+                    <p>Przekazana liczba to: {this.state.childValue}</p>
+                    <p>
+                        <button onClick={this.handleIncrement}>Dodaj</button>
+                        <button onClick={this.handleDecrement}>Odejmnij</button>
+                    </p>
+                </div>
+            );
+        }
+    }
+
+    // Krok 11 przykład z filtrowanie listy
+
+    const allUsers = ['Michal', 'Kasia', 'Jacek', 'Marta', 'Tomek', 'Ania'];
+
+    class ListFilterApp extends React.Component {
+        constructor() {
+            super();
+
+            this.state = {
+                filteredUsers: allUsers
+            };
+        }
+
+        filterUsers(e) {
+            const text = e.currentTarget.value;
+            const filteredUsers = this.getFilteredUsersForText(text)
+            this.setState({
+                filteredUsers
+            })
+        }
+
+        getFilteredUsersForText(text) {
+            return allUsers.filter(user => user.toLowerCase().includes(text.toLowerCase()))
+        }
+
+        render () {
+            return (
+                <div>
+                    <input onInput={this.filterUsers.bind(this)} />
+                    <UsersList users={this.state.filteredUsers} />
+                </div>
+            );
+        }
+    }
+
+    const UsersList = ({ users }) => {
+        if (users.length > 0) {
+            return (
+                <ul>
+                    {users.map(user => <li key={user}>{user}</li>)}
+                </ul>
+            );
+        }
+
+        return (
+            <p>No results!</p>
+        );
+    };
+
+    function App() {
+        return (
+            <div>
+                <AppHeader/>
+                <main className="ui main text container">
+                    <ContactsList/>
+                </main>
+                <br/>
+                <Counter/>
+                <br/>
+                <InputExercise/>
+                <br/>
+                <Parent/>
+                <br/>
+                <ListFilterApp/>
+            </div>
+        );
+    }
+
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    );
+</script>
+</body>
+
+</html>
